@@ -1,0 +1,1 @@
+[{"role": "user", "content": "Hello"}, {"role": "assistant", "content": "I'm Think AI (running on Mock Python). I see you don't have a GOOGLE_API_KEY set."}]
