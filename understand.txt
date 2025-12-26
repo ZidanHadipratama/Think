@@ -1,0 +1,1 @@
+Understand the code base and then explain to me in detail about it, how its works, what is the purpose of it, what features that the app has, how each feature works, what's the workflow, and others things that need to mention or note about the app so I understand the app more.

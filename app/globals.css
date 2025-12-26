@@ -1,8 +1,17 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  /* Prevent body scroll, handle in AppShell */
 }
 
 @theme inline {

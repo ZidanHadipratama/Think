@@ -38,19 +38,21 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <div className="flex h-screen bg-zinc-950 text-zinc-200 font-sans overflow-hidden">
+    <div className="flex flex-col md:flex-row h-dvh bg-zinc-950 text-zinc-200 font-sans overflow-hidden">
       {/* Mobile Header */}
-      <div className="md:hidden fixed top-0 left-0 right-0 h-16 bg-zinc-950 border-b border-zinc-900 flex items-center px-4 z-50 justify-between">
-        <div className="flex items-center gap-2 font-semibold text-white">
-          <button onClick={() => setSidebarOpen(true)} className="p-2 -ml-2 hover:bg-zinc-800 rounded-lg">
-            <Menu className="w-5 h-5 text-zinc-400" />
-          </button>
-          <span className="tracking-tight">Think</span>
+      {!pathname?.startsWith('/chat') && (
+        <div className="md:hidden flex-none h-16 bg-zinc-950 border-b border-zinc-900 flex items-center px-4 z-50 justify-between">
+          <div className="flex items-center gap-2 font-semibold text-white">
+            <button onClick={() => setSidebarOpen(true)} className="p-2 -ml-2 hover:bg-zinc-800 rounded-lg">
+              <Menu className="w-5 h-5 text-zinc-400" />
+            </button>
+            <span className="tracking-tight">Think</span>
+          </div>
+          <div className="w-8 h-8 bg-gradient-to-tr from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
+            <BrainCircuit className="w-4 h-4 text-white" />
+          </div>
         </div>
-        <div className="w-8 h-8 bg-gradient-to-tr from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
-          <BrainCircuit className="w-4 h-4 text-white" />
-        </div>
-      </div>
+      )}
 
       {/* Overlay for mobile sidebar */}
       {sidebarOpen && (
@@ -65,6 +67,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         "fixed inset-y-0 left-0 w-64 bg-zinc-950 border-r border-zinc-900 transform transition-transform duration-200 z-50 md:relative md:translate-x-0 flex flex-col shadow-2xl md:shadow-none",
         sidebarOpen ? "translate-x-0" : "-translate-x-full"
       )}>
+        {/* ... sidebar content ... */}
         <div className="p-4 h-16 flex items-center border-b border-zinc-900/50 justify-between">
           <div className="flex items-center gap-3 font-semibold text-xl tracking-tight text-white">
             <div className="w-8 h-8 bg-gradient-to-tr from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-500/20">
@@ -82,6 +85,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <div className="relative mb-6">
             <button
               onClick={() => setNewMenuOpen(!newMenuOpen)}
+              data-testid="nav-new-button"
               className="w-full flex items-center justify-center gap-2 bg-white hover:bg-zinc-100 text-zinc-900 px-4 py-3 rounded-xl font-medium shadow-sm transition active:scale-95"
             >
               <Plus className="w-5 h-5" />
@@ -105,6 +109,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   </button>
                   <button
                     onClick={createNewFolder}
+                    data-testid="nav-new-folder"
                     className="w-full flex items-center gap-3 px-3 py-2 text-sm text-zinc-300 hover:text-zinc-100 hover:bg-zinc-800 rounded-lg transition"
                   >
                     <FolderPlus className="w-4 h-4 text-yellow-400" />
@@ -123,6 +128,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   key={item.href}
                   href={item.href}
                   onClick={() => setSidebarOpen(false)}
+                  data-testid={`nav-${item.name.toLowerCase()}-link`}
                   className={cn(
                     "flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition duration-200",
                     isActive
@@ -152,7 +158,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       </div>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col h-full overflow-hidden relative pt-16 md:pt-0">
+      <main className="flex-1 flex flex-col min-h-0 overflow-hidden relative">
         {children}
       </main>
     </div>

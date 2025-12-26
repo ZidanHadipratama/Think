@@ -4,6 +4,8 @@ import path from "path";
 
 const DRIVE_ROOT = path.join(process.cwd(), "drive_data");
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
   const relPath = searchParams.get("path");
@@ -74,5 +76,39 @@ export async function PATCH(req: NextRequest) {
 
   } catch (err) {
     return NextResponse.json({ error: "Failed to rename file" }, { status: 500 });
+  }
+}
+// ... (previous content)
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const searchParams = req.nextUrl.searchParams;
+    const filePath = searchParams.get('path');
+
+    if (!filePath || filePath.includes("..")) {
+      return NextResponse.json({ error: "Invalid path" }, { status: 400 });
+    }
+
+    const fullPath = path.join(DRIVE_ROOT, filePath);
+
+    // Check if exists
+    try {
+      await fs.access(fullPath);
+    } catch {
+      return NextResponse.json({ error: "File not found" }, { status: 404 });
+    }
+
+    // Delete file or folder
+    const stats = await fs.stat(fullPath);
+    if (stats.isDirectory()) {
+      await fs.rm(fullPath, { recursive: true, force: true });
+    } else {
+      await fs.unlink(fullPath);
+    }
+
+    return NextResponse.json({ success: true });
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json({ error: "Failed to delete item" }, { status: 500 });
   }
 }

@@ -1,0 +1,143 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e5]:
+        - img [ref=e7]
+        - text: Think
+      - generic [ref=e19]:
+        - button "New" [ref=e21]:
+          - img [ref=e22]
+          - generic [ref=e23]: New
+        - navigation [ref=e24]:
+          - link "Drive" [ref=e25] [cursor=pointer]:
+            - /url: /drive
+            - img [ref=e26]
+            - generic [ref=e28]: Drive
+          - link "Chat" [ref=e29] [cursor=pointer]:
+            - /url: /chat
+            - img [ref=e30]
+            - generic [ref=e32]: Chat
+      - generic [ref=e35]:
+        - generic [ref=e36]: Storage
+        - generic [ref=e37]: 75% used
+    - main [ref=e40]:
+      - generic [ref=e41]:
+        - generic [ref=e42]:
+          - generic [ref=e44]:
+            - img [ref=e45]
+            - generic [ref=e47]: History
+          - generic [ref=e48]:
+            - button "New Chat" [ref=e49]:
+              - img [ref=e50]
+              - generic [ref=e51]: New Chat
+            - generic [ref=e53]: No history yet
+        - generic [ref=e54]:
+          - generic [ref=e56]:
+            - button [ref=e57]:
+              - img [ref=e58]
+            - generic [ref=e61]: New Conversation
+          - generic [ref=e63]:
+            - img [ref=e65]
+            - heading "How can I help you today?" [level=2] [ref=e67]
+          - generic [ref=e69]:
+            - generic [ref=e70]:
+              - textbox "Ask anything..." [active] [ref=e71]
+              - generic [ref=e72]:
+                - generic [ref=e73]:
+                  - button "Add Context" [ref=e74]:
+                    - img [ref=e75]
+                  - button "Flash" [ref=e78]:
+                    - img [ref=e79]
+                    - generic [ref=e82]: Flash
+                    - img [ref=e83]
+                  - generic [ref=e86]:
+                    - button "Discuss" [ref=e87]
+                    - button "Write" [ref=e88]
+                - button [disabled] [ref=e90]:
+                  - img [ref=e91]
+            - generic [ref=e93]: Thinking can make mistakes. Check important information.
+  - generic:
+    - generic [ref=e96]:
+      - generic [ref=e97]:
+        - generic [ref=e98]:
+          - navigation [ref=e99]:
+            - button "previous" [disabled] [ref=e100]:
+              - img "previous" [ref=e101]
+            - generic [ref=e103]:
+              - generic [ref=e104]: 1/
+              - text: "1"
+            - button "next" [disabled] [ref=e105]:
+              - img "next" [ref=e106]
+          - img
+        - generic [ref=e108]:
+          - link "Next.js 16.0.7 (stale) Turbopack" [ref=e109] [cursor=pointer]:
+            - /url: https://nextjs.org/docs/messages/version-staleness
+            - img [ref=e110]
+            - generic "There is a newer version (16.0.10) available, upgrade recommended!" [ref=e112]: Next.js 16.0.7 (stale)
+            - generic [ref=e113]: Turbopack
+          - img
+      - dialog "Build Error" [ref=e115]:
+        - generic [ref=e118]:
+          - generic [ref=e119]:
+            - generic [ref=e120]:
+              - generic [ref=e122]: Build Error
+              - generic [ref=e123]:
+                - button "Copy Error Info" [ref=e124] [cursor=pointer]:
+                  - img [ref=e125]
+                - button "No related documentation found" [disabled] [ref=e127]:
+                  - img [ref=e128]
+                - link "Learn more about enabling Node.js inspector for server code with Chrome DevTools" [ref=e130] [cursor=pointer]:
+                  - /url: https://nextjs.org/docs/app/building-your-application/configuring/debugging#server-side-code
+                  - img [ref=e131]
+            - generic [ref=e140]: Parsing ecmascript source code failed
+          - generic [ref=e142]:
+            - generic [ref=e144]:
+              - img [ref=e146]
+              - generic [ref=e150]: ./app/think/lib/ai/tools.ts (24:5)
+              - button "Open in editor" [ref=e151] [cursor=pointer]:
+                - img [ref=e153]
+            - generic [ref=e156]:
+              - generic [ref=e157]: Parsing ecmascript source code failed
+              - generic [ref=e158]: 22 |
+              - generic [ref=e159]: 23 |
+              - text: export const
+              - generic [ref=e160]: listFilesTool
+              - text: =
+              - generic [ref=e161]: tool(
+              - text: ">"
+              - generic [ref=e162]: 24 |
+              - text: try
+              - generic [ref=e163]: "{"
+              - generic [ref=e164]: "|"
+              - text: ^^^
+              - generic [ref=e165]: 25 |
+              - text: const
+              - generic [ref=e166]: targetPath
+              - text: =
+              - generic [ref=e167]: getSafePath(relPath)
+              - text: ;
+              - generic [ref=e168]: 26 |
+              - generic [ref=e169]: 27 |
+              - text: if
+              - generic [ref=e170]: (
+              - text: "!fs."
+              - generic [ref=e171]: existsSync(targetPath))
+              - text: return
+              - generic [ref=e172]: "`Error: Path '${relPath}' does not exist.`"
+              - text: ;
+              - generic [ref=e173]: "Expression expected Import trace: App Route: ./app/think/lib/ai/tools.ts ./app/think/app/api/chat/route.ts"
+        - generic [ref=e174]: "1"
+        - generic [ref=e175]: "2"
+    - generic [ref=e180] [cursor=pointer]:
+      - button "Open Next.js Dev Tools" [ref=e181]:
+        - img [ref=e182]
+      - button "Open issues overlay" [ref=e186]:
+        - generic [ref=e187]:
+          - generic [ref=e188]: "0"
+          - generic [ref=e189]: "1"
+        - generic [ref=e190]: Issue
+  - alert [ref=e191]
+```
