@@ -31,7 +31,19 @@ interface AppState {
   toast: { title: string; description?: string; type: 'success' | 'error' | 'info' } | null;
   showToast: (toast: { title: string; description?: string; type?: 'success' | 'error' | 'info' }) => void;
   hideToast: () => void;
+
+  apiKey: string | null;
+  setApiKey: (key: string | null) => void;
+
+  geminiFlashModel: string;
+  setGeminiFlashModel: (model: string) => void;
+  geminiProModel: string;
+  setGeminiProModel: (model: string) => void;
+
+  initialize: () => Promise<void>;
 }
+
+import { Preferences } from '@capacitor/preferences';
 
 export const useAppStore = create<AppState>((set) => ({
   currentPath: '',
@@ -70,5 +82,28 @@ export const useAppStore = create<AppState>((set) => ({
     }, 3000);
   },
   hideToast: () => set({ toast: null }),
+
+  apiKey: null,
+  setApiKey: (key) => set({ apiKey: key }),
+
+  geminiFlashModel: "gemini-1.5-flash",
+  setGeminiFlashModel: (model) => set({ geminiFlashModel: model }),
+  geminiProModel: "gemini-1.5-pro",
+  setGeminiProModel: (model) => set({ geminiProModel: model }),
+
+  initialize: async () => {
+    try {
+      const key = await Preferences.get({ key: 'google_api_key' });
+      if (key.value) set({ apiKey: key.value });
+
+      const flash = await Preferences.get({ key: 'gemini_flash_model' });
+      if (flash.value) set({ geminiFlashModel: flash.value });
+
+      const pro = await Preferences.get({ key: 'gemini_pro_model' });
+      if (pro.value) set({ geminiProModel: pro.value });
+    } catch (e) {
+      console.error("Failed to initialize store from preferences", e);
+    }
+  }
 }));
 

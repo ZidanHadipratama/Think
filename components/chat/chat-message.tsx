@@ -9,16 +9,7 @@ import remarkBreaks from 'remark-breaks';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { motion, AnimatePresence } from "framer-motion";
-
-export interface Message {
-  id: number;
-  role: 'user' | 'assistant' | 'tool';
-  content: string;
-  type?: string;
-  tool_name?: string;
-  parent_id?: number | null;
-  created_at?: number;
-}
+import { Message } from "@/lib/types";
 
 interface ChatMessageProps {
   message: Message;

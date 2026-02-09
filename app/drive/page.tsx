@@ -7,6 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAppStore } from "@/lib/store";
 import * as ContextMenu from '@radix-ui/react-context-menu';
+import { NewDocButton } from "@/components/new-doc-button";
 
 interface DriveItem {
   name: string;
@@ -82,7 +83,7 @@ function DriveContent() {
     if (item.type === 'folder') {
       setCurrentPath(item.path);
     } else {
-      router.push(`/doc/${item.path}`);
+      router.push(`/editor?path=${encodeURIComponent(item.path)}`);
     }
   }
 
@@ -206,7 +207,9 @@ function DriveContent() {
   const breadcrumbs = currentPath.split('/').filter(Boolean);
 
   return (
-    <div className="flex flex-col h-full bg-zinc-950 relative">
+    <div className="flex flex-col h-full bg-zinc-950 relative pb-[var(--safe-bottom)]">
+      
+      <NewDocButton />
 
       {/* Rename Dialog Overlay */}
       <AnimatePresence>

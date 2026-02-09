@@ -1,5 +1,5 @@
 import { BaseMessage, SystemMessage, HumanMessage, AIMessage, ToolMessage } from "@langchain/core/messages";
-import { Message } from "../db";
+import { Message } from "../types";
 
 export interface ChatContext {
   filename: string;

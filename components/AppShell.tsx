@@ -3,12 +3,22 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { LayoutGrid, MessageSquare, HardDrive, Plus, FileText, FolderPlus, BrainCircuit, Menu } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import * as Popover from "@radix-ui/react-popover";
 import { AnimatePresence, motion } from "framer-motion";
+import { useAppStore } from "@/lib/store";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
+  const { isLoading, loadingMessage, toast, hideToast, initialize } = useAppStore();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    initialize(); // Load settings from Preferences
+    import('@capacitor/core').then(c => {
+      setIsMobile(c.Capacitor.isNativePlatform());
+    });
+  }, []);
   const pathname = usePathname();
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -22,7 +32,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const createNewDoc = async () => {
     // Create a temporary file or just navigate to a new doc route
     const id = Date.now().toString();
-    router.push(`/doc/Untitled-${id}.md`);
+    const filename = `Untitled-${id}.md`;
+    router.push(`/editor?path=${encodeURIComponent(filename)}`);
     setNewMenuOpen(false);
     setSidebarOpen(false);
   };
@@ -41,7 +52,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     <div className="flex flex-col md:flex-row h-dvh bg-zinc-950 text-zinc-200 font-sans overflow-hidden">
       {/* Mobile Header */}
       {!pathname?.startsWith('/chat') && (
-        <div className="md:hidden flex-none h-16 bg-zinc-950 border-b border-zinc-900 flex items-center px-4 z-50 justify-between">
+        <div className="md:hidden flex-none bg-zinc-950 border-b border-zinc-900 flex items-center px-4 z-50 justify-between pt-[var(--safe-top)] h-[calc(4rem+var(--safe-top))]">
           <div className="flex items-center gap-2 font-semibold text-white">
             <button onClick={() => setSidebarOpen(true)} className="p-2 -ml-2 hover:bg-zinc-800 rounded-lg">
               <Menu className="w-5 h-5 text-zinc-400" />
@@ -64,7 +75,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
       {/* Sidebar */}
       <div className={cn(
-        "fixed inset-y-0 left-0 w-64 bg-zinc-950 border-r border-zinc-900 transform transition-transform duration-200 z-50 md:relative md:translate-x-0 flex flex-col shadow-2xl md:shadow-none",
+        "fixed inset-y-0 left-0 w-64 bg-zinc-950 border-r border-zinc-900 transform transition-transform duration-200 z-50 md:relative md:translate-x-0 flex flex-col shadow-2xl md:shadow-none pt-[var(--safe-top)] pb-[var(--safe-bottom)] pl-[var(--safe-left)]",
         sidebarOpen ? "translate-x-0" : "-translate-x-full"
       )}>
         {/* ... sidebar content ... */}
@@ -144,17 +155,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </nav>
         </div>
 
-        <div className="mt-auto p-4 border-t border-zinc-900/50">
-          <div className="bg-zinc-900/50 rounded-lg p-3">
-            <div className="flex justify-between text-xs text-zinc-400 mb-2">
-              <span>Storage</span>
-              <span>75% used</span>
-            </div>
-            <div className="h-1.5 w-full bg-zinc-900 rounded-full overflow-hidden">
-              <div className="h-full bg-gradient-to-r from-blue-600 to-indigo-600 w-3/4" />
-            </div>
-          </div>
-        </div>
+        {/* Storage Bar Removed */}
       </div>
 
       {/* Main Content */}

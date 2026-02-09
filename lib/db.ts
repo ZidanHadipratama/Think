@@ -1,5 +1,8 @@
 import Database from 'better-sqlite3';
 import path from 'path';
+import { Chat, Message } from './types';
+
+export type { Chat, Message };
 
 const DRIVE_ROOT = path.join(process.cwd(), "drive_data");
 const DB_PATH = path.join(DRIVE_ROOT, "think.db");
@@ -8,25 +11,7 @@ const DB_PATH = path.join(DRIVE_ROOT, "think.db");
 const db = new Database(DB_PATH, { verbose: console.log });
 db.pragma('journal_mode = WAL');
 
-// Define Types corresponding to DB Schema
-export interface Chat {
-  id: string;
-  title: string;
-  updated_at?: number;
-  summary?: string;
-}
-
-export interface Message {
-  id?: number;
-  chat_id: string;
-  role: string;
-  content: string;
-  created_at?: number;
-  type?: string;
-  tool_call_id?: string | null;
-  tool_name?: string | null;
-  tool_args?: string | null; // Stored as JSON string
-}
+// Recreate tables if they don't exist (Migration logic)
 
 // Recreate tables if they don't exist (Migration logic)
 try {
